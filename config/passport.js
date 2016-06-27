@@ -7,9 +7,9 @@ passport.use(new SpotifyStrategy({
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: process.env.CALLBACK_URL
   },
-  function(accessToken, refreshToken, profile, provider, done) {
+  function(accessToken, refreshToken, profile, done) {
     console.log(profile)
-    User.findOne({ providerId: provider.Id }, function (err, user) {
+    User.findOne({ providerId: profile.id }, function (err, user) {
             if (err)  { return done(err) };
       if (user) { return done(null, user) };
       var newUser = new User({
